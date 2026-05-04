@@ -210,3 +210,51 @@ If echobox helps your research, a citation is appreciated:
   url    = {https://github.com/AntColony10086/echobox}
 }
 ```
+
+---
+
+## 视频简介 · Video Pitch
+
+> **echobox** 是一个开源（MIT）的 AI 图像标注工作台，把"画一个框 → AI 自动框出图里所有相似目标"做成完整工作流。
+>
+> *echobox is an open-source (MIT) AI image-labeling workspace that turns "draw one box → auto-detect every similar object" into an end-to-end flow.*
+
+50 秒视频 · [`assets/promo/echobox-promo.mp4`](assets/promo/echobox-promo.mp4) 带你看完核心能力：
+
+- 🎯 **一框出全图** — 你画一个 bbox，GECO2 + Meta SAM2 把图里所有相似目标自动框出来
+- 🖼️ **标注工作台** — 画布 / 图像列表 / 类别面板一站式
+- 💬 **Agent 对话** — 自然语言驱动整个流程（扫描文件夹、切分 train/val/test、推荐标签）
+- 📤 **多格式导出** — YOLO / COCO / Pascal VOC / Label Studio JSON
+- 👀 **离线预览** — 拖入图片 + YOLO 标注立即可视化，零依赖
+- 🔌 **MCP 集成** — Claude Code / Cursor 等 Agent 可以直接调用同一套工具
+
+### ⚠️ 项目目前刚刚起步 · This is an early-stage project
+
+这是 v0.1.0 的早期版本，意味着：
+
+- 一部分功能还在打磨（分割任务、视频帧标注、多人协作等）
+- 文档、示例、测试都还不够丰富
+- 一些边界场景可能会有 bug
+- 部分 UI 细节、键盘快捷键还没补全
+
+我相信"一个人能做出原型，但好工具一定是大家一起做出来的"。
+*One person can ship a prototype; great tools take a community.*
+
+**如果你也在做图像标注相关的工作，或者对 AI Agent + 数据工程感兴趣，非常欢迎你参与进来：**
+
+- 🐛 **遇到 bug** — 直接提 [Issue](https://github.com/AntColony10086/echobox/issues)，附上复现步骤即可
+- 💡 **觉得哪里可以更好用** — 提 Feature Request 或者直接发 PR
+- 📝 **用过其它标注平台** — 把对比体验告诉我，让我们少走弯路
+- 🌱 **新人想练手** — 文档完善、翻译、写测试、出教程都是非常好的切入点
+- ⭐ **暂时没时间贡献代码** — 给个 Star 也是很大的鼓励，能让更多人看到这个项目
+
+让我们一起把它做成中文社区里最好用的开源标注工具。
+*Let's make this the friendliest open-source image-labeling tool out there — together.*
+
+### 一句话版本 · TL;DR
+
+刚开源了一个 AI 图像标注工具：画一个框 → AI 自动框出图里所有相似目标。支持 YOLO / COCO / VOC 多格式导出，可以用自然语言和 Agent 对话来管理整个流程。
+
+项目刚起步，欢迎大家一起来完善——提 Issue、发 PR、给个 Star 都是巨大的鼓励 🙏
+
+`#开源` `#图像标注` `#AI` `#ComputerVision` `#YOLO` `#SAM2` `#LangGraph` `#FastAPI` `#React` `#LLM` `#Agent`
