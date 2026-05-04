@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/screenshots/03-annotate.png" alt="annotation page" width="900">
+  <img src="assets/promo/echobox-usage.gif" alt="echobox usage walkthrough — annotate, browse, configure, export" width="900">
 </p>
 
 ---
@@ -96,15 +96,6 @@ make dev
 > **EN.** Need help on step 4? See [GECO2 releases](https://github.com/jerpelhan/GECO2/releases) for the latest weight URL and SHA256.
 >
 > **中文.** 第 4 步遇到问题，去 [GECO2 releases](https://github.com/jerpelhan/GECO2/releases) 查最新权重链接和 SHA256。
-
-## Usage walkthrough · 使用流程
-
-<p align="center">
-  <img src="assets/promo/echobox-usage.gif" alt="echobox usage walkthrough — annotate, browse, configure, export" width="900">
-</p>
-
-13 秒循环演示 · 13-second loop · **标注 → 浏览数据集 → 项目配置 → 多格式导出**
-*Annotate → Browse dataset → Project setup → Multi-format export*
 
 ## Screenshots · 界面预览
 
