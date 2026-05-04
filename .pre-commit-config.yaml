@@ -9,6 +9,7 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=500"]
+        exclude: ^assets/promo/
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.10

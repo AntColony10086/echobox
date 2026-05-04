@@ -10,6 +10,18 @@
 <p align="center"><b>One box → all the boxes.</b> · <b>画一框，框出全图。</b></p>
 
 <p align="center">
+  <video src="https://github.com/AntColony10086/echobox/raw/main/assets/promo/echobox-promo.mp4" controls muted playsinline width="900"></video>
+</p>
+
+<p align="center">
+  <sub>
+    50 秒看完 · 50-second tour ·
+    <a href="assets/promo/echobox-promo.mp4">download MP4</a> ·
+    <a href="assets/promo/echobox-promo-bgm-only.mp4">no-voice version</a>
+  </sub>
+</p>
+
+<p align="center">
   <img src="assets/screenshots/03-annotate.png" alt="annotation page" width="900">
 </p>
 

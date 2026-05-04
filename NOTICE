@@ -33,3 +33,15 @@ Vite                    https://github.com/vitejs/vite           MIT
 react-konva             https://github.com/konvajs/react-konva   MIT
 
 See respective package metadata for full license texts.
+
+== Promo video assets ==
+
+Background music: "Long Trail" by Kevin MacLeod
+  Source: https://freepd.com/ (also on Wikimedia Commons)
+  License: Public Domain (CC0 / FreePD dedication)
+  Used in: assets/promo/echobox-promo.mp4
+
+Voiceover: Microsoft Azure Neural TTS — voice "zh-CN-XiaoxiaoNeural"
+  Generated locally via the open-source `edge-tts` Python client
+  https://github.com/rany2/edge-tts  (LGPL-3.0)
+  Used in: assets/promo/echobox-promo.mp4
