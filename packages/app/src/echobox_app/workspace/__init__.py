@@ -1,0 +1,1 @@
+"""Workspace filesystem layout management."""

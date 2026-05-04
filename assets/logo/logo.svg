@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="title desc">
+  <title id="title">echobox logo</title>
+  <desc id="desc">Lowercase echobox wordmark with the first o transformed into nested echoing boxes.</desc>
+  <defs>
+    <style>
+      .word { fill: #1a202c; font: 600 92px "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif; }
+      .mark-strong { fill: none; stroke: #3182ce; stroke-width: 10; stroke-linejoin: round; }
+      .mark-mid { fill: none; stroke: #3182ce; stroke-width: 8; stroke-linejoin: round; opacity: .46; }
+      .mark-soft { fill: none; stroke: #3182ce; stroke-width: 6; stroke-linejoin: round; opacity: .20; }
+    </style>
+  </defs>
+  <g transform="translate(30 18)">
+    <text class="word" x="0" y="104">ech</text>
+    <g transform="translate(178 42)">
+      <rect class="mark-soft" x="-8" y="-8" width="72" height="72" rx="18"/>
+      <rect class="mark-mid" x="4" y="4" width="56" height="56" rx="14"/>
+      <rect class="mark-strong" x="17" y="17" width="30" height="30" rx="8"/>
+      <path class="mark-strong" d="M32 17v-9M47 32h9M32 47v9M17 32H8" stroke-linecap="round"/>
+    </g>
+    <text class="word" x="256" y="104">box</text>
+  </g>
+</svg>

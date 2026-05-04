@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">echobox mark</title>
+  <desc id="desc">Nested rounded boxes radiating from one central box.</desc>
+  <defs>
+    <style>
+      .strong { fill: none; stroke: #3182ce; stroke-width: 13; stroke-linejoin: round; }
+      .mid { fill: none; stroke: #3182ce; stroke-width: 10; stroke-linejoin: round; opacity: .48; }
+      .soft { fill: none; stroke: #3182ce; stroke-width: 8; stroke-linejoin: round; opacity: .20; }
+    </style>
+  </defs>
+  <rect class="soft" x="19" y="19" width="122" height="122" rx="29"/>
+  <rect class="mid" x="38" y="38" width="84" height="84" rx="22"/>
+  <rect class="strong" x="59" y="59" width="42" height="42" rx="11"/>
+  <path class="strong" d="M80 59V42M101 80h17M80 101v17M59 80H42" stroke-linecap="round"/>
+</svg>

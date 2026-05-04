@@ -1,0 +1,35 @@
+echobox
+Copyright 2026 The echobox contributors
+
+This product includes software developed by:
+
+== Vendored / submoduled ==
+
+GECO2 — exemplar-based detector
+  https://github.com/jerpelhan/GECO2
+  Copyright (c) 2025 jerpelhan
+  License: MIT
+
+SAM2 — Segment Anything Model 2 (used inside GECO2)
+  https://github.com/facebookresearch/sam2
+  Copyright (c) Meta Platforms, Inc. and affiliates.
+  License: Apache-2.0
+
+Deformable-DETR — used inside GECO2 (models/ops)
+  https://github.com/fundamentalvision/Deformable-DETR
+  Copyright (c) 2020 SenseTime
+  License: Apache-2.0
+
+== Runtime dependencies (key ones) ==
+
+FastAPI                 https://github.com/tiangolo/fastapi      MIT
+Uvicorn                 https://github.com/encode/uvicorn        BSD-3-Clause
+Pydantic                https://github.com/pydantic/pydantic     MIT
+SQLAlchemy              https://github.com/sqlalchemy/sqlalchemy MIT
+Alembic                 https://github.com/sqlalchemy/alembic    MIT
+LangChain & LangGraph   https://github.com/langchain-ai          MIT
+React                   https://github.com/facebook/react        MIT
+Vite                    https://github.com/vitejs/vite           MIT
+react-konva             https://github.com/konvajs/react-konva   MIT
+
+See respective package metadata for full license texts.

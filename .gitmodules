@@ -1,0 +1,3 @@
+[submodule "packages/ml_backend/src/echobox_ml/geco2_vendor"]
+	path = packages/ml_backend/src/echobox_ml/geco2_vendor
+	url = https://github.com/jerpelhan/GECO2.git

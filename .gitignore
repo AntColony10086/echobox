@@ -1,0 +1,50 @@
+# macOS
+.DS_Store
+
+# Environment & secrets
+.env
+.env.local
+*.key
+
+# Runtime data (gitignored per spec)
+.data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+build/
+dist/
+*.egg
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.tsbuildinfo
+frontend/vite.config.d.ts
+frontend/vite.config.js
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Model weights (download separately via scripts/)
+*.pth
+*.pt
+*.safetensors
+*.bin

@@ -1,0 +1,58 @@
+[project]
+name = "echobox"
+version = "0.0.1"
+description = "Multimodal annotation agent — one box, all the boxes"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "echobox contributors"}]
+readme = "README.md"
+
+[tool.uv.workspace]
+members = ["packages/app", "packages/ml_backend", "packages/mcp_server"]
+
+[tool.uv.sources]
+echobox-app = { workspace = true }
+echobox-ml = { workspace = true }
+echobox-mcp = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=4.1",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+    "honcho>=2.0",
+    "echobox-app",
+    "echobox-ml",
+    "echobox-mcp",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+    "packages/ml_backend/src/echobox_ml/geco2_vendor",
+    "**/geco2_vendor/**",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "ASYNC"]
+ignore = ["E501", "N818"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+exclude = ["packages/ml_backend/src/echobox_ml/geco2_vendor", "geco2_vendor"]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["packages/app/tests", "packages/ml_backend/tests", "packages/mcp_server/tests", "tests/e2e"]
+addopts = "-v --tb=short --import-mode=importlib"
