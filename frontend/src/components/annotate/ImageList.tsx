@@ -1,3 +1,4 @@
+import { COLORS } from "../../theme";
 import type { ImageItem, ImageListResponse } from "../../types/annotation";
 import type { SplitName } from "../../types/project";
 
@@ -8,9 +9,9 @@ interface Props {
 }
 
 const SPLIT_COLOR: Record<SplitName, string> = {
-  train: "#3182ce",
-  val: "#d69e2e",
-  test: "#9b5de5",
+  train: "#d46b36",
+  val: "#b67a13",
+  test: "#7e57c2",
 };
 
 export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
@@ -21,26 +22,28 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div
         style={{
-          padding: "10px 12px 8px",
-          borderBottom: "1px solid #e2e8f0",
+          padding: "12px 14px 10px",
+          borderBottom: `1px solid ${COLORS.softBorder}`,
           fontSize: 11,
-          color: "#a0aec0",
+          color: COLORS.muted,
           display: "flex",
           alignItems: "baseline",
           justifyContent: "space-between",
         }}
       >
-        <span style={{ fontWeight: 700, color: "#2d3748", fontSize: 12 }}>
+        <span style={{ fontWeight: 700, color: COLORS.ink, fontSize: 12 }}>
           图像列表
         </span>
         <span>
-          <span style={{ color: "#48bb78", fontWeight: 700 }}>{annotated}</span>
-          <span style={{ color: "#cbd5e0" }}> / </span>
-          <span style={{ color: "#4a5568" }}>{total}</span>
+          <span style={{ color: COLORS.successDark, fontWeight: 700 }}>
+            {annotated}
+          </span>
+          <span style={{ color: COLORS.faint }}> / </span>
+          <span style={{ color: COLORS.ink }}>{total}</span>
         </span>
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", padding: "4px 0" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "6px 0" }}>
         {data.items.map((img, idx) => {
           const active = img.id === currentId;
           return (
@@ -49,11 +52,15 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
               onClick={() => onSelect(img)}
               title={img.filename}
               style={{
-                padding: "6px 10px 6px 8px",
-                background: active ? "#ebf8ff" : "transparent",
-                color: active ? "#2c5282" : "#4a5568",
+                padding: "7px 12px 7px 10px",
+                background: active
+                  ? "linear-gradient(90deg, rgba(212,107,54,0.16), rgba(212,107,54,0.04))"
+                  : "transparent",
+                color: active ? COLORS.accentStrong : COLORS.ink,
                 cursor: "pointer",
-                borderLeft: `3px solid ${active ? "#3182ce" : "transparent"}`,
+                borderLeft: `3px solid ${
+                  active ? COLORS.accent : "transparent"
+                }`,
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
@@ -66,7 +73,7 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
                   width: 26,
                   flexShrink: 0,
                   textAlign: "right",
-                  color: "#a0aec0",
+                  color: COLORS.faint,
                   fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                   fontSize: 10,
                 }}
@@ -92,7 +99,7 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
                   whiteSpace: "nowrap",
                   direction: "rtl",
                   textAlign: "left",
-                  fontWeight: active ? 600 : 400,
+                  fontWeight: active ? 700 : 500,
                 }}
               >
                 {img.filename}
@@ -104,13 +111,13 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
 
       <div
         style={{
-          padding: "8px 12px 10px",
-          borderTop: "1px solid #e2e8f0",
+          padding: "10px 14px 12px",
+          borderTop: `1px solid ${COLORS.softBorder}`,
           fontSize: 11,
-          color: "#a0aec0",
+          color: COLORS.muted,
           display: "flex",
           flexDirection: "column",
-          gap: 6,
+          gap: 8,
         }}
       >
         {(["train", "val", "test"] as const).map((s) => {
@@ -122,21 +129,21 @@ export function ImageList({ data, currentId, onSelect }: Props): JSX.Element {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  marginBottom: 2,
+                  marginBottom: 3,
                 }}
               >
-                <span style={{ color: SPLIT_COLOR[s], fontWeight: 600 }}>
+                <span style={{ color: SPLIT_COLOR[s], fontWeight: 700 }}>
                   {s}
                 </span>
-                <span style={{ color: "#a0aec0" }}>
+                <span style={{ color: COLORS.faint }}>
                   {p.annotated}/{p.total}
                 </span>
               </div>
               <div
                 style={{
-                  height: 4,
-                  borderRadius: 2,
-                  background: "#edf2f7",
+                  height: 5,
+                  borderRadius: 999,
+                  background: "rgba(87,66,44,0.08)",
                   overflow: "hidden",
                 }}
               >

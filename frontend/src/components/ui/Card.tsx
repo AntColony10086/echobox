@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { COLORS } from "../../theme";
+
 interface Props {
   title: string;
   status?: "empty" | "filled" | "error";
@@ -12,21 +14,32 @@ export function Card({
   children,
 }: Props): JSX.Element {
   const borderColor = {
-    empty: "#cbd5e0",
-    filled: "#48bb78",
-    error: "#e53e3e",
+    empty: COLORS.cardBorder,
+    filled: "rgba(45,143,103,0.55)",
+    error: "rgba(178,65,52,0.55)",
   }[status];
   return (
     <div
       style={{
         border: `1px solid ${borderColor}`,
-        borderRadius: 8,
+        borderRadius: 18,
         padding: 16,
         marginBottom: 12,
-        background: "white",
+        background: COLORS.cardBg,
+        boxShadow: "0 8px 24px rgba(58,37,18,0.06)",
+        backdropFilter: "blur(12px)",
       }}
     >
-      <h3 style={{ margin: "0 0 8px 0", fontSize: 14, fontWeight: 600 }}>
+      <h3
+        style={{
+          margin: "0 0 10px 0",
+          fontSize: 13,
+          fontWeight: 700,
+          color: COLORS.accentStrong,
+          letterSpacing: 0.4,
+          textTransform: "uppercase",
+        }}
+      >
         {title}
       </h3>
       {children}

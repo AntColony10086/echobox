@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
 
+import { COLORS, FONT_STACK } from "../../theme";
+
 interface Props {
   title: string;
   onClose: () => void;
@@ -28,26 +30,30 @@ export function Modal({
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.55)",
+        background:
+          "radial-gradient(circle at 30% 20%, rgba(212,107,54,0.18), transparent 40%), rgba(31,42,51,0.55)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 1000,
+        backdropFilter: "blur(2px)",
       }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "white",
-          color: "#1a202c",
+          background: "#fbf6ec",
+          color: COLORS.ink,
           width,
           maxWidth: "92vw",
           maxHeight: "88vh",
-          borderRadius: 10,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
+          borderRadius: 22,
+          boxShadow: "0 30px 80px rgba(58,37,18,0.35)",
+          border: `1px solid ${COLORS.cardBorder}`,
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
+          fontFamily: FONT_STACK,
         }}
       >
         <header
@@ -55,11 +61,12 @@ export function Modal({
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "12px 16px",
-            borderBottom: "1px solid #e2e8f0",
+            padding: "14px 18px",
+            borderBottom: `1px solid ${COLORS.softBorder}`,
+            background: "rgba(255,250,242,0.7)",
           }}
         >
-          <h2 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>{title}</h2>
+          <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{title}</h2>
           <button
             onClick={onClose}
             aria-label="关闭"
@@ -68,8 +75,8 @@ export function Modal({
               border: "none",
               fontSize: 22,
               cursor: "pointer",
-              color: "#718096",
-              padding: "0 4px",
+              color: COLORS.muted,
+              padding: "0 6px",
               lineHeight: 1,
             }}
           >
@@ -80,7 +87,7 @@ export function Modal({
           style={{
             flex: 1,
             overflowY: "auto",
-            padding: 16,
+            padding: 18,
             minHeight: 0,
           }}
         >

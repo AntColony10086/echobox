@@ -1,3 +1,4 @@
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
 import { Button } from "../ui/Button";
 import { Panel } from "../ui/Panel";
 import {
@@ -91,7 +92,7 @@ export function Toolbar({
             <kbd
               style={{
                 fontSize: 10,
-                color: "#a0aec0",
+                color: COLORS.faint,
                 marginLeft: 4,
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
               }}
@@ -129,16 +130,17 @@ function ModeButton({
         alignItems: "center",
         justifyContent: "center",
         gap: 6,
-        padding: "8px 6px",
-        background: active ? "#3182ce" : "white",
-        color: active ? "white" : "#2d3748",
-        border: `1px solid ${active ? "#3182ce" : "#cbd5e0"}`,
-        borderRadius: 6,
+        padding: "9px 8px",
+        background: active ? GRADIENTS.accent : "rgba(255,255,255,0.7)",
+        color: active ? "white" : COLORS.ink,
+        border: `1px solid ${active ? "transparent" : COLORS.cardBorder}`,
+        borderRadius: 999,
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.5 : 1,
         fontSize: 12,
-        fontWeight: active ? 600 : 500,
-        position: "relative",
+        fontWeight: active ? 700 : 600,
+        fontFamily: FONT_STACK,
+        boxShadow: active ? "0 6px 14px rgba(212,107,54,0.28)" : "none",
       }}
     >
       {icon}
@@ -147,7 +149,7 @@ function ModeButton({
         style={{
           fontSize: 10,
           marginLeft: 2,
-          color: active ? "rgba(255,255,255,0.8)" : "#a0aec0",
+          color: active ? "rgba(255,255,255,0.85)" : COLORS.faint,
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
         }}
       >

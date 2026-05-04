@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { createExport, getDefaultExportDir } from "../../api/exports";
 import type { ExportResult } from "../../api/exports";
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
 import type { ExportFormat } from "../../types/project";
 import { Card } from "../ui/Card";
 
@@ -28,7 +29,7 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
         setOutputDir((cur) => cur || d);
       })
       .catch(() => {
-        // ignore — placeholder will just be empty
+        // ignore
       });
   }, [pid]);
 
@@ -56,13 +57,14 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
 
   return (
     <Card title="导出数据集">
-      <div style={{ marginBottom: 10 }}>
+      <div style={{ marginBottom: 12 }}>
         <label
           style={{
             fontSize: 12,
-            color: "#4a5568",
+            color: COLORS.muted,
             display: "block",
-            marginBottom: 4,
+            marginBottom: 6,
+            fontWeight: 600,
           }}
         >
           格式
@@ -80,14 +82,20 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
               onClick={() => setFormat(f)}
               disabled={busy}
               style={{
-                padding: "6px 8px",
-                background: format === f ? "#3182ce" : "white",
-                color: format === f ? "white" : "#4a5568",
-                border: `1px solid ${format === f ? "#3182ce" : "#cbd5e0"}`,
-                borderRadius: 4,
+                padding: "7px 8px",
+                background:
+                  format === f ? GRADIENTS.accent : "rgba(255,255,255,0.7)",
+                color: format === f ? "white" : COLORS.ink,
+                border: `1px solid ${
+                  format === f ? "transparent" : COLORS.cardBorder
+                }`,
+                borderRadius: 999,
                 fontSize: 12,
                 cursor: "pointer",
-                fontWeight: format === f ? 700 : 400,
+                fontWeight: format === f ? 700 : 600,
+                fontFamily: FONT_STACK,
+                boxShadow:
+                  format === f ? "0 6px 14px rgba(212,107,54,0.24)" : "none",
               }}
             >
               {f.toUpperCase()}
@@ -96,13 +104,14 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
         </div>
       </div>
 
-      <div style={{ marginBottom: 10 }}>
+      <div style={{ marginBottom: 12 }}>
         <label
           style={{
             fontSize: 12,
-            color: "#4a5568",
+            color: COLORS.muted,
             display: "block",
-            marginBottom: 4,
+            marginBottom: 6,
+            fontWeight: 600,
           }}
         >
           输出目录（绝对路径，~ 自动展开）
@@ -116,21 +125,22 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
           spellCheck={false}
           style={{
             width: "100%",
-            padding: "6px 8px",
-            background: "white",
-            color: "#2d3748",
-            border: "1px solid #cbd5e0",
-            borderRadius: 4,
+            padding: "8px 12px",
+            background: "rgba(255,255,255,0.85)",
+            color: COLORS.ink,
+            border: `1px solid ${COLORS.cardBorder}`,
+            borderRadius: 10,
             fontSize: 12,
-            fontFamily: "monospace",
+            fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
             boxSizing: "border-box",
+            outline: "none",
           }}
         />
-        <div style={{ fontSize: 11, color: "#718096", marginTop: 4 }}>
+        <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 6 }}>
           默认：项目 workspace 下的{" "}
-          <code style={{ color: "#4a5568" }}>exports/</code>
+          <code style={{ color: COLORS.ink }}>exports/</code>
           。导出会在该目录里建一个{" "}
-          <code style={{ color: "#4a5568" }}>
+          <code style={{ color: COLORS.ink }}>
             YYYY-MM-DDTHH-MM-SS-{format}/
           </code>{" "}
           子目录（多次导出不互相覆盖）。
@@ -141,10 +151,10 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 6,
+          gap: 8,
           fontSize: 12,
-          color: "#4a5568",
-          marginBottom: 10,
+          color: COLORS.muted,
+          marginBottom: 12,
         }}
       >
         <input
@@ -152,6 +162,7 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
           checked={includePending}
           onChange={(e) => setIncludePending(e.target.checked)}
           disabled={busy}
+          style={{ accentColor: COLORS.accent }}
         />
         含 GECO2 待审核框（geco2_pending）
       </label>
@@ -161,14 +172,16 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
         disabled={busy}
         style={{
           width: "100%",
-          padding: "8px 12px",
-          background: busy ? "#a0aec0" : "#48bb78",
+          padding: "10px 14px",
+          background: busy ? "rgba(45,143,103,0.4)" : GRADIENTS.success,
           color: "white",
           border: "none",
-          borderRadius: 4,
+          borderRadius: 999,
           fontSize: 13,
           fontWeight: 700,
           cursor: busy ? "wait" : "pointer",
+          fontFamily: FONT_STACK,
+          boxShadow: busy ? "none" : "0 8px 18px rgba(45,143,103,0.28)",
         }}
       >
         {busy ? "导出中…" : "▼ 导出数据集"}
@@ -177,11 +190,12 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
       {error && (
         <div
           style={{
-            marginTop: 8,
-            padding: 8,
-            background: "#fed7d7",
-            color: "#742a2a",
-            borderRadius: 4,
+            marginTop: 10,
+            padding: "10px 12px",
+            background: "rgba(178,65,52,0.1)",
+            color: COLORS.dangerDark,
+            border: "1px solid rgba(178,65,52,0.18)",
+            borderRadius: 12,
             fontSize: 12,
             wordBreak: "break-word",
           }}
@@ -193,11 +207,12 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
       {result && (
         <div
           style={{
-            marginTop: 8,
-            padding: 8,
-            background: "#c6f6d5",
-            color: "#22543d",
-            borderRadius: 4,
+            marginTop: 10,
+            padding: "10px 12px",
+            background: "rgba(45,143,103,0.1)",
+            color: COLORS.successDark,
+            border: "1px solid rgba(45,143,103,0.2)",
+            borderRadius: 12,
             fontSize: 12,
             wordBreak: "break-all",
           }}
@@ -215,9 +230,9 @@ export function ExportPanel({ pid, projectFormat }: Props): JSX.Element {
           <br />
           <code
             style={{
-              fontFamily: "monospace",
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
               fontSize: 11,
-              color: "#1a202c",
+              color: COLORS.ink,
             }}
           >
             {result.output_dir}

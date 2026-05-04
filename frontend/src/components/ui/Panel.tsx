@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { COLORS } from "../../theme";
+
 interface Props {
   title?: string;
   trailing?: ReactNode;
@@ -18,10 +20,12 @@ export function Panel({
   return (
     <section
       style={{
-        background: "white",
-        border: "1px solid #e2e8f0",
-        borderRadius: 8,
+        background: COLORS.cardBg,
+        border: `1px solid ${COLORS.cardBorder}`,
+        borderRadius: 18,
         marginBottom: 12,
+        boxShadow: "0 8px 24px rgba(58,37,18,0.06)",
+        backdropFilter: "blur(12px)",
         ...style,
       }}
     >
@@ -31,27 +35,27 @@ export function Panel({
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "8px 12px",
-            borderBottom: "1px solid #edf2f7",
+            padding: "10px 14px",
+            borderBottom: `1px solid ${COLORS.softBorder}`,
           }}
         >
           <span
             style={{
               fontSize: 11,
-              fontWeight: 600,
+              fontWeight: 700,
               letterSpacing: 0.6,
               textTransform: "uppercase",
-              color: "#718096",
+              color: COLORS.accentStrong,
             }}
           >
             {title}
           </span>
           {trailing && (
-            <span style={{ fontSize: 12, color: "#2d3748" }}>{trailing}</span>
+            <span style={{ fontSize: 12, color: COLORS.ink }}>{trailing}</span>
           )}
         </header>
       )}
-      <div style={{ padding: noPadding ? 0 : 12 }}>{children}</div>
+      <div style={{ padding: noPadding ? 0 : 14 }}>{children}</div>
     </section>
   );
 }

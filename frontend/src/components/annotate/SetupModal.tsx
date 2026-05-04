@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { finalizeProject } from "../../api/projects";
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
 import { FolderCard } from "../cards/FolderCard";
 import { FormatCard } from "../cards/FormatCard";
 import { ImageInventoryCard } from "../cards/ImageInventoryCard";
@@ -52,9 +53,18 @@ export function SetupModal({
     }
   };
 
+  const draftReady = project.status === "draft" && !busy;
+
   return (
     <Modal title={`项目配置 — ${project.name}`} onClose={onClose} width={760}>
-      <div style={{ fontSize: 12, color: "#718096", marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 12,
+          color: COLORS.muted,
+          marginBottom: 14,
+          fontFamily: FONT_STACK,
+        }}
+      >
         project_id={project.id} · status={project.status}
       </div>
       <FolderCard project={project} onUpdated={onUpdated} />
@@ -65,7 +75,7 @@ export function SetupModal({
       <ExportPanel pid={project.id} projectFormat={project.export_format} />
       <div
         style={{
-          marginTop: 16,
+          marginTop: 18,
           display: "flex",
           alignItems: "center",
           gap: 12,
@@ -75,16 +85,20 @@ export function SetupModal({
           onClick={finalize}
           disabled={busy || project.status !== "draft"}
           style={{
-            padding: "10px 20px",
-            background:
-              project.status === "draft" && !busy ? "#48bb78" : "#a0aec0",
+            padding: "12px 22px",
+            background: draftReady
+              ? GRADIENTS.success
+              : "rgba(45,143,103,0.35)",
             color: "white",
             border: "none",
-            borderRadius: 6,
-            cursor:
-              project.status === "draft" && !busy ? "pointer" : "not-allowed",
+            borderRadius: 999,
+            cursor: draftReady ? "pointer" : "not-allowed",
             fontSize: 14,
-            fontWeight: 600,
+            fontWeight: 700,
+            fontFamily: FONT_STACK,
+            boxShadow: draftReady
+              ? "0 10px 22px rgba(45,143,103,0.28)"
+              : "none",
           }}
         >
           {busy
@@ -94,7 +108,7 @@ export function SetupModal({
               : "✓ 已就绪"}
         </button>
         {project.status !== "draft" && (
-          <span style={{ fontSize: 12, color: "#48bb78" }}>
+          <span style={{ fontSize: 12, color: COLORS.successDark }}>
             项目已就绪，可继续修改配置
           </span>
         )}
@@ -102,11 +116,12 @@ export function SetupModal({
       {finalizeError && (
         <div
           style={{
-            marginTop: 8,
-            padding: 8,
-            background: "#fed7d7",
-            color: "#742a2a",
-            borderRadius: 4,
+            marginTop: 10,
+            padding: "10px 12px",
+            background: "rgba(178,65,52,0.1)",
+            color: COLORS.dangerDark,
+            border: "1px solid rgba(178,65,52,0.18)",
+            borderRadius: 12,
             fontSize: 12,
           }}
         >

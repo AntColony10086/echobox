@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { patchFolder } from "../../api/projects";
+import { COLORS } from "../../theme";
 import type { Project } from "../../types/project";
 import { Card } from "../ui/Card";
 
@@ -35,7 +36,18 @@ export function FolderCard({ project, onUpdated }: Props): JSX.Element {
         onBlur={submit}
         placeholder="/abs/path/to/images"
         disabled={busy}
-        style={{ width: "100%", padding: 6, fontFamily: "monospace" }}
+        style={{
+          width: "100%",
+          padding: "8px 12px",
+          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          background: "rgba(255,255,255,0.85)",
+          color: COLORS.ink,
+          border: `1px solid ${COLORS.cardBorder}`,
+          borderRadius: 10,
+          fontSize: 12,
+          outline: "none",
+          boxSizing: "border-box",
+        }}
       />
     </Card>
   );

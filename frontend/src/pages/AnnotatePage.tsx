@@ -16,6 +16,7 @@ import { Button } from "../components/ui/Button";
 import { Panel } from "../components/ui/Panel";
 import { useAnnotations } from "../hooks/useAnnotations";
 import { useSaveState } from "../hooks/useSaveState";
+import { CANVAS_BG, COLORS, FONT_STACK, PAGE_BG } from "../theme";
 import type { ImageItem, ImageListResponse } from "../types/annotation";
 import type { Project } from "../types/project";
 
@@ -26,11 +27,11 @@ function Kbd({ children }: { children: React.ReactNode }): JSX.Element {
     <kbd
       style={{
         fontSize: 10,
-        padding: "1px 5px",
-        border: "1px solid #cbd5e0",
-        borderRadius: 3,
-        background: "white",
-        color: "#2d3748",
+        padding: "1px 6px",
+        border: `1px solid ${COLORS.cardBorder}`,
+        borderRadius: 4,
+        background: "rgba(255,255,255,0.85)",
+        color: COLORS.ink,
         fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
       }}
     >
@@ -54,8 +55,6 @@ export function AnnotatePage(): JSX.Element {
   const [setupOpen, setSetupOpen] = useState<boolean>(false);
   const [chatOpen, setChatOpen] = useState<boolean>(false);
 
-  // Use a callback-ref so measurement re-fires whenever the <main> remounts
-  // (e.g. after the loading-state early-return swaps to the real layout).
   const mainElRef = useRef<HTMLElement | null>(null);
   const roRef = useRef<ResizeObserver | null>(null);
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
@@ -72,13 +71,10 @@ export function AnnotatePage(): JSX.Element {
 
   const containerRef = useCallback(
     (node: HTMLElement | null): void => {
-      // disconnect previous observer (when remounting)
       roRef.current?.disconnect();
       mainElRef.current = node;
       if (!node) return;
-      // measure synchronously now
       measure(node);
-      // observe future size changes
       const ro = new ResizeObserver(() => measure(node));
       ro.observe(node);
       roRef.current = ro;
@@ -111,7 +107,6 @@ export function AnnotatePage(): JSX.Element {
     });
   }, [pid, currentImage]);
 
-  // Initial load — auto-open setup modal if project is still in draft.
   useEffect(() => {
     if (!pid) return;
     refetchProject().then((p) => {
@@ -121,7 +116,6 @@ export function AnnotatePage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pid]);
 
-  // window resize as last-resort backup (ResizeObserver handles most cases)
   useEffect(() => {
     const onResize = (): void => {
       if (mainElRef.current) measure(mainElRef.current);
@@ -130,7 +124,6 @@ export function AnnotatePage(): JSX.Element {
     return () => window.removeEventListener("resize", onResize);
   }, [measure]);
 
-  // Reset zoom when switching to a different image
   useEffect(() => {
     setZoom(1);
   }, [currentImage?.id]);
@@ -205,29 +198,62 @@ export function AnnotatePage(): JSX.Element {
     await save.wrap(() => ann.updateBbox(id, bbox, a.version));
   };
 
-  if (!pid) return <div style={{ padding: 24 }}>missing project_id</div>;
-  if (!project) return <div style={{ padding: 24 }}>loading…</div>;
+  if (!pid)
+    return (
+      <div
+        style={{
+          padding: 24,
+          fontFamily: FONT_STACK,
+          color: COLORS.ink,
+          background: PAGE_BG,
+          minHeight: "100vh",
+        }}
+      >
+        missing project_id
+      </div>
+    );
+  if (!project)
+    return (
+      <div
+        style={{
+          padding: 24,
+          fontFamily: FONT_STACK,
+          color: COLORS.muted,
+          background: PAGE_BG,
+          minHeight: "100vh",
+        }}
+      >
+        loading…
+      </div>
+    );
 
   const hasPending = ann.annotations.some((a) => a.source === "geco2_pending");
   const hasSelection = selectedAnnId != null;
+
+  const chromeBg = "rgba(255,250,242,0.86)";
+  const chromeBorder = `1px solid ${COLORS.cardBorder}`;
 
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "220px 1fr 280px",
+        gridTemplateColumns: "240px 1fr 300px",
         height: "100vh",
+        background: PAGE_BG,
+        color: COLORS.ink,
+        fontFamily: FONT_STACK,
       }}
     >
       <aside
         style={{
-          background: "white",
-          color: "#2d3748",
+          background: chromeBg,
+          backdropFilter: "blur(16px)",
+          color: COLORS.ink,
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
           minHeight: 0,
-          borderRight: "1px solid #e2e8f0",
+          borderRight: chromeBorder,
         }}
       >
         <ImageList
@@ -252,7 +278,9 @@ export function AnnotatePage(): JSX.Element {
         style={{
           position: "relative",
           overflow: "hidden",
-          background: "#edf2f7",
+          background: CANVAS_BG,
+          backgroundSize: "24px 24px",
+          backgroundPosition: "0 0, 0 12px, 12px -12px, -12px 0",
           minWidth: 0,
           minHeight: 0,
         }}
@@ -263,24 +291,43 @@ export function AnnotatePage(): JSX.Element {
             top: 0,
             left: 0,
             right: 0,
-            height: 40,
-            background: "white",
+            height: 48,
+            background: chromeBg,
+            backdropFilter: "blur(16px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 12px",
+            padding: "0 16px",
             gap: 12,
-            color: "#2d3748",
+            color: COLORS.ink,
             fontSize: 12,
-            borderBottom: "1px solid #e2e8f0",
+            borderBottom: chromeBorder,
             zIndex: 5,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontWeight: 700 }}>{project.name}</span>
-            <span style={{ color: "#a0aec0" }}>
-              · {project.status} · #{project.id}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontWeight: 700, fontSize: 14 }}>
+              {project.name}
             </span>
+            <span
+              style={{
+                padding: "2px 10px",
+                borderRadius: 999,
+                fontSize: 11,
+                fontWeight: 600,
+                background:
+                  project.status === "ready"
+                    ? "rgba(45,143,103,0.14)"
+                    : "rgba(182,122,19,0.14)",
+                color:
+                  project.status === "ready"
+                    ? COLORS.successDark
+                    : COLORS.warnDark,
+              }}
+            >
+              {project.status}
+            </span>
+            <span style={{ color: COLORS.faint }}>#{project.id}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <Button
@@ -303,39 +350,54 @@ export function AnnotatePage(): JSX.Element {
           <div
             style={{
               position: "absolute",
-              top: 40,
+              top: 48,
               left: 0,
               right: 0,
-              bottom: 40,
+              bottom: 48,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#718096",
+              color: COLORS.muted,
               fontSize: 14,
               padding: 24,
               textAlign: "center",
             }}
           >
-            {project.status === "draft" ? (
-              <div>
-                项目尚未配置完成
-                <br />
-                点击右上角 <b style={{ color: "#2d3748" }}>配置项目</b> 或{" "}
-                <b style={{ color: "#2d3748" }}>与 Agent 对话</b> 完成设置
-              </div>
-            ) : (
-              <div>暂无图片</div>
-            )}
+            <div
+              style={{
+                maxWidth: 420,
+                padding: "28px 24px",
+                background: COLORS.cardBg,
+                border: chromeBorder,
+                borderRadius: 24,
+                boxShadow: COLORS.cardShadow,
+                backdropFilter: "blur(16px)",
+                lineHeight: 1.7,
+              }}
+            >
+              {project.status === "draft" ? (
+                <div>
+                  项目尚未配置完成
+                  <br />
+                  点击右上角 <b style={{ color: COLORS.ink }}>
+                    配置项目
+                  </b> 或 <b style={{ color: COLORS.ink }}>与 Agent 对话</b>{" "}
+                  完成设置
+                </div>
+              ) : (
+                <div>暂无图片</div>
+              )}
+            </div>
           </div>
         )}
         {currentImage && containerSize.w > 0 && containerSize.h > 0 && (
           <div
             style={{
               position: "absolute",
-              top: 40,
+              top: 48,
               left: 0,
               right: 0,
-              bottom: 40,
+              bottom: 48,
               overflow: "hidden",
             }}
           >
@@ -344,7 +406,7 @@ export function AnnotatePage(): JSX.Element {
               imageWidth={currentImage.width}
               imageHeight={currentImage.height}
               containerWidth={containerSize.w}
-              containerHeight={containerSize.h - 80}
+              containerHeight={containerSize.h - 96}
               zoom={zoom}
             >
               {(ctx) => (
@@ -376,28 +438,29 @@ export function AnnotatePage(): JSX.Element {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 40,
-            background: "white",
+            height: 48,
+            background: chromeBg,
+            backdropFilter: "blur(16px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 12px",
+            padding: "0 16px",
             gap: 12,
-            color: "#2d3748",
+            color: COLORS.ink,
             fontSize: 12,
-            borderTop: "1px solid #e2e8f0",
+            borderTop: chromeBorder,
             zIndex: 5,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <Button size="sm" variant="ghost" onClick={() => navigateImage(-1)}>
               ← 上一张
             </Button>
             <span
               style={{
-                minWidth: 140,
+                minWidth: 160,
                 textAlign: "center",
-                color: "#4a5568",
+                color: COLORS.muted,
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                 fontSize: 11,
                 overflow: "hidden",
@@ -411,8 +474,8 @@ export function AnnotatePage(): JSX.Element {
               下一张 →
             </Button>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ color: "#a0aec0", marginRight: 4 }}>缩放</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ color: COLORS.faint, marginRight: 4 }}>缩放</span>
             <Button
               size="sm"
               variant="ghost"
@@ -424,10 +487,10 @@ export function AnnotatePage(): JSX.Element {
             </Button>
             <span
               style={{
-                minWidth: 48,
+                minWidth: 52,
                 textAlign: "center",
-                color: "#2d3748",
-                fontWeight: 600,
+                color: COLORS.ink,
+                fontWeight: 700,
               }}
             >
               {Math.round(zoom * 100)}%
@@ -450,11 +513,12 @@ export function AnnotatePage(): JSX.Element {
 
       <aside
         style={{
-          background: "#f7fafc",
-          color: "#2d3748",
-          padding: 12,
+          background: chromeBg,
+          backdropFilter: "blur(16px)",
+          color: COLORS.ink,
+          padding: 14,
           overflowY: "auto",
-          borderLeft: "1px solid #e2e8f0",
+          borderLeft: chromeBorder,
         }}
       >
         <ClassPicker
@@ -485,7 +549,7 @@ export function AnnotatePage(): JSX.Element {
         <Panel
           title="GECO2 阈值"
           trailing={
-            <span style={{ fontWeight: 600, color: "#2d3748" }}>
+            <span style={{ fontWeight: 700, color: COLORS.ink }}>
               {scoreThreshold.toFixed(2)}
             </span>
           }
@@ -499,7 +563,7 @@ export function AnnotatePage(): JSX.Element {
             onChange={(e) => setScoreThreshold(parseFloat(e.target.value))}
             style={{
               width: "100%",
-              accentColor: "#3182ce",
+              accentColor: COLORS.accent,
               display: "block",
             }}
           />
@@ -508,14 +572,14 @@ export function AnnotatePage(): JSX.Element {
               display: "flex",
               justifyContent: "space-between",
               fontSize: 10,
-              color: "#a0aec0",
+              color: COLORS.faint,
               marginTop: 4,
             }}
           >
             <span>更宽松</span>
             <span>更严格</span>
           </div>
-          <div style={{ fontSize: 11, color: "#718096", marginTop: 6 }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 6 }}>
             下次画框时生效
           </div>
         </Panel>
@@ -535,7 +599,7 @@ export function AnnotatePage(): JSX.Element {
               title="改选中框的类别"
               trailing={
                 <span
-                  style={{ color: selectedAnn.label.color, fontWeight: 600 }}
+                  style={{ color: selectedAnn.label.color, fontWeight: 700 }}
                 >
                   {selectedAnn.label.name}
                 </span>
@@ -570,21 +634,26 @@ export function AnnotatePage(): JSX.Element {
                         display: "flex",
                         alignItems: "center",
                         gap: 6,
-                        padding: "6px 8px",
-                        border: `1px solid ${isCurrent ? l.color : "#cbd5e0"}`,
-                        borderRadius: 4,
-                        background: isCurrent ? `${l.color}1a` : "white",
-                        color: "#2d3748",
+                        padding: "6px 10px",
+                        border: `1px solid ${
+                          isCurrent ? l.color : COLORS.cardBorder
+                        }`,
+                        borderRadius: 999,
+                        background: isCurrent
+                          ? `${l.color}1f`
+                          : "rgba(255,255,255,0.7)",
+                        color: COLORS.ink,
                         fontSize: 12,
-                        fontWeight: isCurrent ? 600 : 400,
+                        fontWeight: isCurrent ? 700 : 500,
                         cursor: isCurrent ? "default" : "pointer",
+                        fontFamily: FONT_STACK,
                       }}
                     >
                       <span
                         style={{
                           width: 10,
                           height: 10,
-                          borderRadius: 2,
+                          borderRadius: 3,
                           background: l.color,
                           flexShrink: 0,
                         }}
@@ -613,8 +682,8 @@ export function AnnotatePage(): JSX.Element {
               padding: 0,
               listStyle: "none",
               fontSize: 12,
-              color: "#4a5568",
-              lineHeight: 1.7,
+              color: COLORS.muted,
+              lineHeight: 1.8,
             }}
           >
             <li>· 点击选中后拖动整框可移动</li>

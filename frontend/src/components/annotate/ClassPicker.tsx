@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { addLabel, deleteLabel } from "../../api/projects";
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
 import type { Label } from "../../types/project";
 import { Panel } from "../ui/Panel";
 import { PlusIcon, TrashIcon } from "../ui/icons";
@@ -39,12 +40,12 @@ export function ClassPicker({
     <Panel
       title="类别"
       trailing={
-        <span style={{ fontSize: 11, color: "#a0aec0" }}>
+        <span style={{ fontSize: 11, color: COLORS.muted }}>
           {labels.length} 个
         </span>
       }
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {labels.map((l, idx) => {
           const isSelected = selectedId === l.id;
           const onDelete = async (e: React.MouseEvent): Promise<void> => {
@@ -71,13 +72,15 @@ export function ClassPicker({
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                padding: "6px 8px",
-                borderRadius: 6,
-                border: `1px solid ${isSelected ? l.color : "#e2e8f0"}`,
-                background: isSelected ? `${l.color}14` : "white",
+                padding: "8px 10px",
+                borderRadius: 12,
+                border: `1px solid ${isSelected ? l.color : COLORS.cardBorder}`,
+                background: isSelected
+                  ? `${l.color}1f`
+                  : "rgba(255,255,255,0.7)",
                 cursor: "pointer",
                 fontSize: 13,
-                color: "#2d3748",
+                color: COLORS.ink,
                 userSelect: "none",
               }}
             >
@@ -89,14 +92,14 @@ export function ClassPicker({
                   background: l.color,
                   flexShrink: 0,
                   boxShadow: isSelected
-                    ? `0 0 0 2px white, 0 0 0 3px ${l.color}`
+                    ? `0 0 0 2px #fbf6ec, 0 0 0 3px ${l.color}`
                     : "none",
                 }}
               />
               <span
                 style={{
                   flex: 1,
-                  fontWeight: isSelected ? 600 : 400,
+                  fontWeight: isSelected ? 700 : 500,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
@@ -108,10 +111,10 @@ export function ClassPicker({
                 <kbd
                   style={{
                     fontSize: 10,
-                    color: "#a0aec0",
-                    background: "#f7fafc",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: 3,
+                    color: COLORS.muted,
+                    background: "rgba(255,255,255,0.7)",
+                    border: `1px solid ${COLORS.cardBorder}`,
+                    borderRadius: 4,
                     padding: "0 5px",
                     minWidth: 14,
                     textAlign: "center",
@@ -129,11 +132,11 @@ export function ClassPicker({
                 aria-label={`删除类别 ${l.name}`}
                 style={{
                   background: "transparent",
-                  color: "#a0aec0",
+                  color: COLORS.faint,
                   border: "none",
-                  borderRadius: 4,
-                  width: 22,
-                  height: 22,
+                  borderRadius: 999,
+                  width: 24,
+                  height: 24,
                   cursor: busy ? "wait" : "pointer",
                   display: "inline-flex",
                   alignItems: "center",
@@ -142,12 +145,12 @@ export function ClassPicker({
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.color = "#e53e3e";
-                  el.style.background = "#fff5f5";
+                  el.style.color = COLORS.danger;
+                  el.style.background = "rgba(178,65,52,0.1)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.color = "#a0aec0";
+                  el.style.color = COLORS.faint;
                   el.style.background = "transparent";
                 }}
               >
@@ -158,7 +161,7 @@ export function ClassPicker({
         })}
       </div>
 
-      <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+      <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
         <input
           type="text"
           value={newName}
@@ -168,13 +171,14 @@ export function ClassPicker({
           disabled={busy}
           style={{
             flex: 1,
-            padding: "5px 8px",
-            background: "white",
-            color: "#2d3748",
-            border: "1px solid #cbd5e0",
-            borderRadius: 4,
+            padding: "6px 10px",
+            background: "rgba(255,255,255,0.85)",
+            color: COLORS.ink,
+            border: `1px solid ${COLORS.cardBorder}`,
+            borderRadius: 999,
             fontSize: 12,
             outline: "none",
+            fontFamily: FONT_STACK,
           }}
         />
         <button
@@ -182,15 +186,23 @@ export function ClassPicker({
           disabled={busy || !newName.trim()}
           aria-label="添加类别"
           style={{
-            background: busy || !newName.trim() ? "#edf2f7" : "#3182ce",
-            color: busy || !newName.trim() ? "#a0aec0" : "white",
+            background:
+              busy || !newName.trim()
+                ? "rgba(212,107,54,0.35)"
+                : GRADIENTS.accent,
+            color: "white",
             border: "none",
-            borderRadius: 4,
-            width: 28,
+            borderRadius: 999,
+            width: 32,
+            height: 28,
             cursor: busy || !newName.trim() ? "not-allowed" : "pointer",
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
+            boxShadow:
+              busy || !newName.trim()
+                ? "none"
+                : "0 6px 14px rgba(212,107,54,0.28)",
           }}
         >
           <PlusIcon size={14} />

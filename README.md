@@ -4,7 +4,6 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
-  <a href="https://github.com/AntColony10086/echobox/actions"><img src="https://github.com/AntColony10086/echobox/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/AntColony10086/echobox/stargazers"><img src="https://img.shields.io/github/stars/AntColony10086/echobox?style=social" alt="Stars"></a>
 </p>
 
@@ -18,15 +17,19 @@
 
 ## What it does · 核心能力
 
-**EN.** Echobox is a multimodal annotation agent. Draw one bounding box; an LLM-supervised
-exemplar detector ([GECO2](https://github.com/jerpelhan/GECO2), backed by Meta's
-[SAM2](https://github.com/facebookresearch/sam2)) returns every similar object in the image.
-You adjust, accept, save. A LangGraph agent handles the boring parts — folder scanning,
-train/val/test split, label suggestions, and dataset export to COCO / YOLO / Pascal VOC /
-Label Studio JSON. The same tools are exposed as MCP, so other agents (Claude Code, Cursor,
-…) can drive annotation programmatically.
+**EN.** Echobox is a multimodal annotation agent with two workspaces in one app:
+the **Workbench** for full agent-driven annotation, and the **Viewer** for a zero-dependency
+offline preview of YOLO / point annotations. In the Workbench, you draw one bounding box
+and an LLM-supervised exemplar detector ([GECO2](https://github.com/jerpelhan/GECO2),
+backed by Meta's [SAM2](https://github.com/facebookresearch/sam2)) returns every similar
+object in the image. You adjust, accept, save. A LangGraph agent handles the boring parts —
+folder scanning, train/val/test split, label suggestions, and dataset export to COCO / YOLO /
+Pascal VOC / Label Studio JSON. The same tools are exposed as MCP, so other agents
+(Claude Code, Cursor, …) can drive annotation programmatically.
 
-**中文.** Echobox 是一个多模态智能标注 Agent。你只需画一个 bbox，LLM 监督下的 exemplar 检测器
+**中文.** Echobox 是一个多模态智能标注 Agent，一个 app 里两套工作区：
+**工作台** 走 Agent 全流程标注，**预览** 是零依赖的离线 YOLO / 点标注预览器。
+工作台里你只需画一个 bbox，LLM 监督下的 exemplar 检测器
 （[GECO2](https://github.com/jerpelhan/GECO2)，底层用 Meta 的
 [SAM2](https://github.com/facebookresearch/sam2)）就把图里所有相似目标都框出来。
 你确认、调整、保存。LangGraph agent 负责扫描文件夹、切分 train/val/test、推荐标签、导出
@@ -84,11 +87,32 @@ make dev
 
 ## Screenshots · 界面预览
 
-| Home · 首页 | Setup · 配置 |
-|---|---|
-| ![home](assets/screenshots/01-home.png) | ![setup](assets/screenshots/02-setup-modal.png) |
-| **Annotate · 标注** | **Chat · 对话** |
-| ![annotate](assets/screenshots/03-annotate.png) | ![chat](assets/screenshots/04-chat.png) |
+<table align="center">
+  <tr>
+    <th align="center">Workbench · 工作台</th>
+    <th align="center">Viewer · 预览</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/screenshots/01-home.png" alt="workbench"></td>
+    <td align="center"><img src="assets/screenshots/06-viewer.png" alt="viewer"></td>
+  </tr>
+  <tr>
+    <th align="center">Setup · 配置</th>
+    <th align="center">Export · 导出</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/screenshots/02-setup-modal.png" alt="setup"></td>
+    <td align="center"><img src="assets/screenshots/05-export.png" alt="export"></td>
+  </tr>
+  <tr>
+    <th align="center">Annotate · 标注</th>
+    <th align="center">Chat · 对话</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/screenshots/03-annotate.png" alt="annotate"></td>
+    <td align="center"><img src="assets/screenshots/04-chat.png" alt="chat"></td>
+  </tr>
+</table>
 
 ## MCP integration · MCP 集成
 

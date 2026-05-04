@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
+
 type Variant = "primary" | "success" | "danger" | "ghost" | "subtle";
 type Size = "sm" | "md";
 
@@ -14,37 +16,40 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANTS: Record<
   Variant,
-  { bg: string; fg: string; border: string; hoverBg: string }
+  { bg: string; fg: string; border: string; hoverBg: string; shadow?: string }
 > = {
   primary: {
-    bg: "#3182ce",
+    bg: GRADIENTS.accent,
     fg: "white",
-    border: "#3182ce",
-    hoverBg: "#2b6cb0",
+    border: "transparent",
+    hoverBg: `linear-gradient(135deg, ${COLORS.accentStrong}, ${COLORS.accent})`,
+    shadow: "0 8px 18px rgba(212,107,54,0.28)",
   },
   success: {
-    bg: "#48bb78",
+    bg: GRADIENTS.success,
     fg: "white",
-    border: "#48bb78",
-    hoverBg: "#38a169",
+    border: "transparent",
+    hoverBg: `linear-gradient(135deg, ${COLORS.successDark}, ${COLORS.success})`,
+    shadow: "0 8px 18px rgba(45,143,103,0.28)",
   },
   danger: {
-    bg: "#e53e3e",
+    bg: GRADIENTS.danger,
     fg: "white",
-    border: "#e53e3e",
-    hoverBg: "#c53030",
+    border: "transparent",
+    hoverBg: `linear-gradient(135deg, ${COLORS.danger}, #d65a4a)`,
+    shadow: "0 8px 18px rgba(178,65,52,0.28)",
   },
   ghost: {
-    bg: "white",
-    fg: "#2d3748",
-    border: "#cbd5e0",
-    hoverBg: "#f7fafc",
+    bg: "rgba(255,255,255,0.72)",
+    fg: COLORS.ink,
+    border: COLORS.cardBorder,
+    hoverBg: "rgba(255,255,255,0.92)",
   },
   subtle: {
-    bg: "#edf2f7",
-    fg: "#2d3748",
-    border: "#edf2f7",
-    hoverBg: "#e2e8f0",
+    bg: COLORS.glassBg,
+    fg: COLORS.ink,
+    border: COLORS.softBorder,
+    hoverBg: "rgba(255,255,255,0.78)",
   },
 };
 
@@ -52,8 +57,8 @@ const SIZES: Record<
   Size,
   { padding: string; fontSize: number; height: number }
 > = {
-  sm: { padding: "0 8px", fontSize: 12, height: 26 },
-  md: { padding: "0 12px", fontSize: 13, height: 32 },
+  sm: { padding: "0 12px", fontSize: 12, height: 28 },
+  md: { padding: "0 16px", fontSize: 13, height: 34 },
 };
 
 export function Button({
@@ -80,19 +85,21 @@ export function Button({
         background: v.bg,
         color: v.fg,
         border: `1px solid ${v.border}`,
-        borderRadius: 6,
+        borderRadius: 999,
         padding: s.padding,
         fontSize: s.fontSize,
         height: s.height,
         cursor: disabled ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.5 : 1,
+        opacity: disabled ? 0.45 : 1,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         gap: 6,
-        fontWeight: 500,
+        fontWeight: 600,
+        fontFamily: FONT_STACK,
         width: block ? "100%" : undefined,
-        transition: "background 120ms",
+        boxShadow: v.shadow,
+        transition: "background 160ms ease, box-shadow 160ms ease",
         ...style,
       }}
       onMouseEnter={(e) => {

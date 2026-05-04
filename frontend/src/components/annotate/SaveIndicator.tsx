@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { COLORS } from "../../theme";
 import { AlertIcon, CheckIcon, LoaderIcon, SaveIcon } from "../ui/icons";
 
 interface Props {
@@ -24,19 +25,23 @@ export function SaveIndicator({
   }, [state]);
 
   const presets = {
-    idle: { color: "#a0aec0", icon: <SaveIcon size={12} />, label: "待编辑" },
+    idle: {
+      color: COLORS.faint,
+      icon: <SaveIcon size={12} />,
+      label: "待编辑",
+    },
     saving: {
-      color: "#d69e2e",
+      color: COLORS.warn,
       icon: <LoaderIcon size={12} />,
       label: "保存中…",
     },
     saved: {
-      color: pulse ? "#48bb78" : "#a0aec0",
+      color: pulse ? COLORS.success : COLORS.faint,
       icon: <CheckIcon size={12} />,
       label: "已保存",
     },
     error: {
-      color: "#e53e3e",
+      color: COLORS.danger,
       icon: <AlertIcon size={12} />,
       label: lastError ?? "保存失败",
     },
@@ -49,10 +54,10 @@ export function SaveIndicator({
         display: "flex",
         alignItems: "center",
         gap: 8,
-        padding: "6px 10px",
-        background: "white",
-        border: "1px solid #e2e8f0",
-        borderRadius: 6,
+        padding: "8px 12px",
+        background: "rgba(255,255,255,0.7)",
+        border: `1px solid ${COLORS.cardBorder}`,
+        borderRadius: 999,
         fontSize: 12,
       }}
       title={state === "error" ? (lastError ?? "") : undefined}
@@ -68,7 +73,7 @@ export function SaveIndicator({
       </span>
       <span
         style={{
-          color: "#2d3748",
+          color: COLORS.ink,
           flex: 1,
           overflow: "hidden",
           textOverflow: "ellipsis",
@@ -78,7 +83,7 @@ export function SaveIndicator({
         {p.label}
       </span>
       {lastElapsedMs != null && (
-        <span style={{ color: "#a0aec0", fontSize: 11 }}>
+        <span style={{ color: COLORS.faint, fontSize: 11 }}>
           GECO2 {lastElapsedMs}ms
         </span>
       )}

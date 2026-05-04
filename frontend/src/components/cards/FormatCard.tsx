@@ -1,4 +1,5 @@
 import { patchFormat } from "../../api/projects";
+import { COLORS, FONT_STACK, GRADIENTS } from "../../theme";
 import type { ExportFormat, Project } from "../../types/project";
 import { Card } from "../ui/Card";
 
@@ -18,22 +19,29 @@ export function FormatCard({ project, onUpdated }: Props): JSX.Element {
   return (
     <Card title="导出格式" status={status}>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-        {FORMATS.map((fmt) => (
-          <button
-            key={fmt}
-            onClick={() => select(fmt)}
-            style={{
-              padding: "4px 10px",
-              border: "1px solid #cbd5e0",
-              borderRadius: 4,
-              background: project.export_format === fmt ? "#3182ce" : "white",
-              color: project.export_format === fmt ? "white" : "#2d3748",
-              cursor: "pointer",
-            }}
-          >
-            {fmt.toUpperCase()}
-          </button>
-        ))}
+        {FORMATS.map((fmt) => {
+          const active = project.export_format === fmt;
+          return (
+            <button
+              key={fmt}
+              onClick={() => select(fmt)}
+              style={{
+                padding: "6px 14px",
+                border: `1px solid ${active ? "transparent" : COLORS.cardBorder}`,
+                borderRadius: 999,
+                background: active ? GRADIENTS.accent : "rgba(255,255,255,0.7)",
+                color: active ? "white" : COLORS.ink,
+                cursor: "pointer",
+                fontSize: 12,
+                fontWeight: active ? 700 : 600,
+                fontFamily: FONT_STACK,
+                boxShadow: active ? "0 6px 14px rgba(212,107,54,0.24)" : "none",
+              }}
+            >
+              {fmt.toUpperCase()}
+            </button>
+          );
+        })}
       </div>
     </Card>
   );
