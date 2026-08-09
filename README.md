@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <img src="assets/logo/logo.svg" alt="echobox" width="320">
 </p>
@@ -215,9 +217,9 @@ If echobox helps your research, a citation is appreciated:
 
 ## 视频简介 · Video Pitch
 
-> **echobox** 是一个开源（MIT）的 AI 图像标注工作台，把"画一个框 → AI 自动框出图里所有相似目标"做成完整工作流。
+> **echobox** 是一个开源（Apache-2.0）的 AI 图像标注工作台，把"画一个框 → AI 自动框出图里所有相似目标"做成完整工作流。
 >
-> *echobox is an open-source (MIT) AI image-labeling workspace that turns "draw one box → auto-detect every similar object" into an end-to-end flow.*
+> *echobox is an open-source (Apache-2.0) AI image-labeling workspace that turns "draw one box → auto-detect every similar object" into an end-to-end flow.*
 
 50 秒视频 · [`assets/promo/echobox-promo.mp4`](assets/promo/echobox-promo.mp4) 带你看完核心能力：
 
